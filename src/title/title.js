@@ -1,16 +1,9 @@
 import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
+let titre = import("../../public/titre.html");
 
 export class Title extends PolymerElement {
     static get template() {
-        return html`
-      <style>
-        :host {
-          display: block;
-          color : white;
-        }
-      </style>
-      <h2>Hello [[prop1]]!</h2>
-    `;
+        return titre;
     }
     static get properties() {
         return {

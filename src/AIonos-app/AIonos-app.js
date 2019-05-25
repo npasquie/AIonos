@@ -20,6 +20,7 @@ class AIonosApp extends PolymerElement {
           color : white;
         }
       </style>
+      <title-el></title-el>
       <h2>Hello [[prop1]]!</h2>
     `;
   }
