@@ -1,33 +1,33 @@
-# \<AIonos\>
+# AdOpinion
+
+A minimalistic advertisement algorithm powered by Sentiment Analysis 
+
+![AdOpinion : retrieve the list of users to target by brand](doc/Intro_AdOpinion.gif)
+
+The app schema/topology 
+![AdOpinion : Schema](doc/GlobalArchitecture.png)
+
+## What it does
+
+It call the Twitter API and fetch the 300 last tweets concerning the brand entered in the search bar (the number of tweets can be modified). Then it analyses these tweets and classify them into 'positive' or 'negative' ones using a trained model (`best_model.hdf5`) based on a bidirectionnal LSTM network.
+Finally, it outputs the list of the 'positive users' and the 'negative users' : the 'positive users' are those who 'likes' the brand so a marketing service of this brand may be interested in sending product advertisements to them because they know that they will buy it. On the other side, the 'negative users' will be more excited to watch the 'moral value video' of the brand because those are potential users...
+
+Thus, it target users based on their sentiment and not according some cookies statistics.
+
+## Installation 
+
+* Register in https://developer.twitter.com/ then create an application in the developer console and generate the API keys :
+`consumer_key`, `consumer_secret`, `access_token_key` and `access_token_secret`.
+* Copy/paste those keys in the `model.js`(AdOpinion/routes/model.js) in the associated field.
+* Install [node](https://nodejs.org/en/)
+* Then, enter in the terminal : `git clone https://github.com/gabrielmougard/AdOpinion.git && cd AdOpinion && npm install`
+* Run `pip3 install -r requirement.txt` to install python3 dependencies.
+* Install some dictionnaries : type `python3` in a terminal then enter in the interpreter :
+`import nltk` and `nltk.download()` then type `d` and enter the following keywords : `stopwords`, `punkt`, `averaged_perceptron_tagger`, `wordnet`.
+* Finally, execute `npm start` in the same terminal and open your web browser where you can type `localhost:3000` to open the platform !
+
+## Important note
+* Wait a little bit when you want to click on the two buttons because you have to wait for the predictions (10s max)! 
 
 
-
-## Install the Polymer-CLI
-
-First, make sure you have the [Polymer CLI](https://www.npmjs.com/package/polymer-cli) installed. Then run `polymer serve` to serve your application locally.
-
-## Viewing Your Application
-
-```
-$ polymer serve
-```
-
-## Building Your Application
-
-```
-$ polymer build
-```
-
-This will create builds of your application in the `build/` directory, optimized to be served in production. You can then serve the built versions by giving `polymer serve` a folder to serve from:
-
-```
-$ polymer serve build/default
-```
-
-## Running Tests
-
-```
-$ polymer test
-```
-
-Your application is already set up to be tested via [web-component-tester](https://github.com/Polymer/web-component-tester). Run `polymer test` to run your application's test suite locally. [Java SE Development Kit 8](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) is required. Note that if you do not have the `javac` command installed, you will be promted to install Java 10. To uninstall Java, see the direction [here](https://www.java.com/en/download/help/mac_uninstall_java.xml). See [issue #405 for the status of Java 10 support](https://github.com/Polymer/tools/issues/405).
+Cheers !

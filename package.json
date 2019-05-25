@@ -1,13 +1,19 @@
 {
-  "name": "AIonos",
-  "dependencies": {
-    "@polymer/polymer": "^3.0.0"
+  "name": "twit-sieve",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
   },
-  "devDependencies": {
-    "@polymer/test-fixture": "^4.0.2",
-    "@webcomponents/webcomponentsjs": "^2.0.0",
-    "chai": "^4.2.0",
-    "mocha": "^5.2.0",
-    "wct-mocha": "^1.0.0"
+  "dependencies": {
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "ejs": "~2.5.7",
+    "express": "~4.16.0",
+    "http-errors": "~1.6.2",
+    "morgan": "~1.9.0",
+    "python-shell": "^1.0.7",
+    "twitter": "^1.7.1",
+    "wordcloud": "^1.1.0"
   }
 }
