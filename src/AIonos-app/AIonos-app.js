@@ -10,6 +10,13 @@ class AIonosApp extends PolymerElement {
       <style>
         :host {
           display: block;
+          margin:0;
+          heigth:100%;
+          background-color:black;
+          /*background-image:url(/public/fond.png);*/
+          /*height:100vh;*/
+          /*width:100vh;*/
+          color : white;
         }
       </style>
       <h2>Hello [[prop1]]!</h2>
@@ -22,6 +29,12 @@ class AIonosApp extends PolymerElement {
         value: 'aionos-app'
       }
     };
+  }
+
+  ready(){
+    super.ready();
+    this.style.height = window.innerHeight;
+    this.style.width = window.innerWidth;
   }
 }
 
