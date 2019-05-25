@@ -1,4 +1,5 @@
 import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
+import {Title} from '../title/title';
 
 /**
  * @customElement
@@ -33,8 +34,8 @@ class AIonosApp extends PolymerElement {
 
   ready(){
     super.ready();
-    this.style.height = window.innerHeight;
-    this.style.width = window.innerWidth;
+    // this.style.height = window.innerHeight;
+    // this.style.width = window.innerWidth;
   }
 }
 
