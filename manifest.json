@@ -1,0 +1,6 @@
+{
+  "name": "AIonos",
+  "short_name": "AIonos",
+  "start_url": "/",
+  "display": "standalone"
+}
