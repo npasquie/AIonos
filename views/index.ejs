@@ -8,35 +8,6 @@
             href="https://fonts.googleapis.com/css?family=Righteous">
   </head>
   <body>
-
-  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-  <script>
-
-      myfunc = async ()=> {
-          var options = {
-              chart: {
-                  type: 'line'
-              },
-              series: [{
-                  name: 'sales',
-                  data: [30, 40, 35, 50, 49, 60, 70, 91, 125]
-              }],
-              xaxis: {
-                  categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
-              }
-          }
-          var chart = new ApexCharts(document.querySelector("LineChart"), options);
-
-          await chart.render();
-      }
-
-      myfunc()
-
-
-
-
-  </script>
-
       <h1 style="font-family: Righteous;"><div style="color:deepskyblue;display:inline-block;">AI</div>onos  </h1>
           <br>
             <h2 style="font-family: Righteous;">Unleash the
@@ -50,22 +21,70 @@
       <br>
       <br>
       <div class="row">
-          <div class="column" style="background: red;height: 100%;">
+          <div class="column" style="height: 100%;">
+              <script>
+                  var loadData = new Promise(function(resolve, reject) {
+                      var xhr = new XMLHttpRequest();
+                      xhr.open('GET', 'https://services.swpc.noaa.gov/json/f107_cm_flux.json', true);
+                      xhr.responseType = 'json';
+                      xhr.onload = function () {
+                          var status = xhr.status;
+                          if (status === 200) {
+                              resolve(xhr.response);
+                          } else {
+                              resolve([]);
+                          }
+                      };
+                      xhr.send();
+                  });
+                  loadData.then(function(res) {
+                      dataPoints = [];
+                      res.forEach(function (value, index) {
+                          dataPoints.push({x: new Date(value["time_tag"]), y: value["flux"]});
+                      });
+
+                      var chart = new CanvasJS.Chart("chartContainer", {
+                          animationEnabled: true,
+                          theme: "dark2",
+                          title:{
+                              text: "Intensity of solar flux"
+                          },
+                          axisY:{
+                              includeZero:false,
+                          },
+                          axisX: {
+                              xValueType: "dateTime",
+                              valueFormatString: "D MMM" ,
+                          },
+                          data: [{
+                              type: "line",
+                              dataPoints: dataPoints,
+
+                          }]
+                      });
+                      chart.render();
+                  });
+              </script>
+              <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+              <script src="https://canvasjs.com/assets/script/canvasjs.min.js">;
+              </script>
               </div>
-          <div class="column" style="background: blue;height: 100%;">
+          <div class="column" style="height: 100%;">
               <div class="Wrapper">
                   <div class="Input">
                       <form id="mainForm" action="/model" method="get" onkeypress="pressEnter(event);">
                           <input type="text" id="input" class="Input-text" placeholder="Search a frequency" name="data">
-                          <label for="input" class="Input-label">My brand !</label>
+                          <label for="input" class="Input-label">your frequency in Mhz</label>
                       </form>
                   </div>
+                  <br>
+
               </div>
           </div>
       </div>
       <br>
       <br>
-      <h2>With <a href="https://github.com/gabrielmougard/HackathonIA"><font color="#00B7FF">AdOpinion</font></a>, fetch the right feelings for the brand !</h2>
+      <h2>With <a href="https://github.com/gabrielmougard/HackathonIA"><font color="#00B7FF">AIonos</font></a> never be cut off from the radio !</h2>
     <script>
         function solarData() {
             var getJSON = function(url, callback) {
@@ -128,18 +147,20 @@
     <!--blinking alert-->
   <script>
       let state = false;
+      let counter = 0;
       function blink() {
+          counter++;
           if (state){
-              document.body.style.backgroundColor = "black";
+              document.body.style.background = "#222";
               state = !state;
           }
-          else{
-              document.body.style.backgroundColor = "red";
+          else if (counter<20){
+              document.body.style.background = "red";
               state = !state;
           }
       }
       setTimeout(function() {
-          setInterval(() => blink(), 1000);
+          setInterval(() => blink(), 500);
       }, 5000);
   </script>
 
