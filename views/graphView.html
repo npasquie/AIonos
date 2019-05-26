@@ -3,6 +3,7 @@
 <head>
     <script>
         window.onload = function () {
+            import("../app.js");
 
             var chart = new CanvasJS.Chart("chartContainer", {
                 animationEnabled: true,
@@ -15,7 +16,7 @@
                 },
                 data: [{
                     type: "line",
-                    dataPoints: []
+                    dataPoints: solarData(),
                 }]
             });
             chart.render();
