@@ -1,0 +1,43 @@
+var loadData = new Promise(function(resolve, reject) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'https://services.swpc.noaa.gov/json/f107_cm_flux.json', true);
+    xhr.responseType = 'json';
+    xhr.onload = function () {
+        var status = xhr.status;
+        if (status === 200) {
+            resolve(xhr.response);
+        } else {
+            resolve([]);
+        }
+    };
+    xhr.send();
+});
+
+
+loadData.then(function(res) {
+    dataPoints = [];
+    res.forEach(function (value, index) {
+        dataPoints.push({x: new Date(value["time_tag"]), y: value["flux"]});
+    });
+
+    var chart = new CanvasJS.Chart("chartContainer", {
+        animationEnabled: true,
+        theme: "dark2",
+        title:{
+            text: "Intensite du flux solaire"
+        },
+        axisY:{
+
+        },
+        axisX: {
+            xValueType: "dateTime",
+            valueFormatString: "D MMM" ,
+        },
+        data: [{
+            type: "line",
+            dataPoints: dataPoints,
+
+        }]
+    });
+    chart.render();
+});
