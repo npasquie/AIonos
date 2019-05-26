@@ -1,49 +1,45 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-</head>
-    <script type="text/javascript">
-        window.onload = function() {
-            var dataPoints = [];
-            var chart;
-            $.getJSON("https://services.swpc.noaa.gov/json/f107_cm_flux.json", function(data) {
-                $.each(data, function(key, value){
-                    dataPoints.push({x: value[0], y: parseInt(value[2])});
-                });
-                chart = new CanvasJS.Chart("chartContainer",{
-                    title:{
-                        text:"Live Chart with dataPoints from External JSON"
-                    },
-                    axisX: {
-                        xValueType: "dateTime",
-                        valueFormatString: "D MMM H:m:s" ,
-                    },
-                    data: [{
-                        type: "line",
-                        dataPoints : dataPoints,
-                    }]
-                });
-                chart.render();
-                updateChart();
+    <script>
+        window.onload = function () {
+
+            var chart = new CanvasJS.Chart("chartContainer", {
+                animationEnabled: true,
+                zoomEnabled: true,
+                title:{
+                    text: "Prediction"
+                },
+                axisY :{
+                    includeZero:false
+                },
+                data: data  // random generator below
             });
-            function updateChart() {
-                $.getJSON('https://services.swpc.noaa.gov/json/f107_cm_flux.json', function(data) {
-                    $.each(data, function(key, value) {
-                        dataPoints.push({
-                            x: parseInt(value[0]),
-                            y: parseInt(value[2])
-                        });
-                    });
-                    chart.render();
-                    setTimeout(function(){updateChart()}, 1000);
-                });
-            }
+            chart.render();
+
         }
+
+        var limit = 1000;
+
+        var y = 0;
+        var data = [];
+        var dataSeries = { type: "line" };
+        var dataPoints = [];
+        // varier entre 0 et 0.00003
+        for (var i = 0; i < limit; i += 1) {
+            y += (Math.random() * 10 - 5);
+            dataPoints.push({
+                x: i - limit / 2,
+                y: y
+            });
+        }
+        dataSeries.dataPoints = dataPoints;
+        data.push(dataSeries);
+
     </script>
-    <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
-    <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-</head>
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script></head>
 <body>
-<div id="chartContainer" style="height: 300px; width: 100%;"></div>
+<div id="chartContainer" style="height: 370px; width: 100%;">
+</div>
 </body>
 </html>
