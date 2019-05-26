@@ -1,6 +1,10 @@
-window.onload = function () {
+<!DOCTYPE HTML>
+<html>
+<head>
+    <script>
+        window.onload = function () {
 
-            var chart = new CanvasJS.Chart("chartContainer", {
+            var chart1 = new CanvasJS.Chart("chartContainer2", {
                 animationEnabled: true,
                 zoomEnabled: true,
                 title:{
@@ -12,7 +16,7 @@ window.onload = function () {
                 theme: "dark2",
                 data: data  // random generator below
             });
-            chart.render();
+            chart1.render();
 
         }
 
@@ -42,3 +46,11 @@ window.onload = function () {
         }
         dataSeries.dataPoints = dataPoints;
         data.push(dataSeries);
+
+    </script>
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script></head>
+<body>
+<div id="chartContainer2" style="height: 370px; width: 100%;">
+</div>
+</body>
+</html>

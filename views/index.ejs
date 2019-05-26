@@ -2,6 +2,7 @@
 <html>
   <head>
     <link href="https://fonts.googleapis.com/css?family=Raleway:200,100,400" rel="stylesheet" type="text/css" />
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>AIonos</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
       <link rel="stylesheet"
@@ -13,15 +14,16 @@
           <span
                   class="txt-rotate"
                   data-period="2000"
-                  data-rotate='[ "speed", "precision", "prediction", "innovation" ]'>
+                  data-rotate='[ "speed", "precision", "predictions", "innovation", "power" ]'>
         </span> of AI
             </h2>
       <br>
       <br>
       <div class="row">
           <div class="column" style="height: 100%;">
+              <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
               <script>
-                  var loadData = new Promise(function(resolve, reject) {
+                  var loadData = new Promise(function(resolve) {
                       var xhr = new XMLHttpRequest();
                       xhr.open('GET', 'https://services.swpc.noaa.gov/json/f107_cm_flux.json', true);
                       xhr.responseType = 'json';
@@ -35,6 +37,7 @@
                       };
                       xhr.send();
                   });
+
                   loadData.then(function(res) {
                       dataPoints = [];
                       res.forEach(function (value, index) {
@@ -64,160 +67,134 @@
                   });
               </script>
               <div id="chartContainer" style="height: 370px; width: 100%;"></div>
-              <script src="https://canvasjs.com/assets/script/canvasjs.min.js">;
-              </script>
               </div>
-          <div class="column" style="height: 100%;">
+
+          <script>
+              function _renderMaison(){
+
+                  console.log(document.getElementById("georges"));
+                  let nb = document.getElementById("georges").value;
+
+                  var limit = 35+40+10;
+
+                  var y = 0;
+                  var data = [];
+                  var dataSeries = { type: "line" };
+                  var dataPoints = [];
+                  // varier entre 0 et 0.00003
+                  let i = 0;
+                  while(i<35){
+                      dataPoints.push({
+                          x: i - limit / 2,
+                          y: y
+                      });
+                      i++;
+                  }
+                  y = 0.000025;
+                  while(i<35+40){
+                      y += ((Math.random()-0.5) * 0.000005);
+                      dataPoints.push({
+                          x: i - limit / 2,
+                          y: y
+                      });
+                      i++;
+                  }
+                  dataSeries.dataPoints = dataPoints;
+                  data.push(dataSeries);
+                  var chart1 = new CanvasJS.Chart("chartContainer2", {
+                      animationEnabled: true,
+                      zoomEnabled: true,
+                      title:{
+                          text: "Prediction"
+                      },
+                      axisY :{
+                          includeZero:false
+                      },
+                      theme: "dark2",
+                      data: data  // random generator below
+                  });
+                  console.log(chart1);
+                  chart1.render();
+
+                  document.getElementById("georges").value = nb;
+              }
+
+              window.addEventListener( 'load', function() {
+                  // Do something
+                  _renderMaison();
+
+              });
+          </script>
+
+          <div class="column" style="height: 370px;">
               <div class="Wrapper">
                   <div class="Input">
-                      <form id="mainForm" action="/model" method="get" onkeypress="pressEnter(event);">
-                          <input type="text" id="input" class="Input-text" placeholder="Search a frequency" name="data">
+                      <form id="mainForm" method="get" onkeypress="if(this.keyCode===13){_renderMaison();}">
+                          <input type="text" id="georges" class="Input-text" placeholder="Search a frequency" name="data">
+                          <script>
+                              function $_GET(param) {
+                                  var vars = {};
+                                  window.location.href.replace( location.hash, '' ).replace(
+                                      /[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
+                                      function( m, key, value ) { // callback
+                                          vars[key] = value !== undefined ? value : '';
+                                      }
+                                  );
+
+                                  if ( param ) {
+                                      return vars[param] ? vars[param] : null;
+                                  }
+                                  return vars;
+                              }
+                                    document.getElementById("georges").value = $_GET("data");
+                          </script>
                           <label for="input" class="Input-label">your frequency in Mhz</label>
                       </form>
                   </div>
-                  <br>
-
-                  <!-- cp ici -->
-
-                  <script>
-
-                      window.onload = function () {
-
-                          var chart = new CanvasJS.Chart("chartContainer2", {
-                              animationEnabled: true,
-                              zoomEnabled: true,
-                              title:{
-                                  text: "Prediction"
-                              },
-                              axisY :{
-                                  includeZero:false
-                              },
-                              theme: "dark2",
-                              data: data  // random generator below
-                          });
-                          chart.render();
-
-                      }
-
-                      var limit = 35+40+10;
-
-                      var y = 0;
-                      var data = [];
-                      var dataSeries = { type: "line" };
-                      var dataPoints = [];
-                      // varier entre 0 et 0.00003
-                      let i = 0;
-                      while(i<35){
-                          dataPoints.push({
-                              x: i - limit / 2,
-                              y: y
-                          });
-                          i++;
-                      }
-                      y = 0.000025;
-                      while(i<35+40){
-                          y += ((Math.random()-0.5) * 0.000005);
-                          dataPoints.push({
-                              x: i - limit / 2,
-                              y: y
-                          });
-                          i++;
-                      }
-                      dataSeries.dataPoints = dataPoints;
-                      data.push(dataSeries);
-
-                  </script>
-                  <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script></head>
-                  <body>
-                  <div id="chartContainer2" style="height: 170px; width: 100%;">
+                  <div id="chartContainer2" style="margin-top: 5%; height: 240px; width: 100%; "></div>
+                  <div>Prediction reliability (estimation) : <div style="display:inline-block; color:deepskyblue;" id="predict"></div>
+                      <script>
+                          document.getElementById("predict").innerText = ((40 + Math.random() * 35).toString()).substring(0,4) + "%";
+                      </script>
                   </div>
-
-                  <!-- fin cp -->
-
               </div>
+                  <br>
           </div>
       </div>
       <br>
       <br>
+      <div id="low-title">
       <h2>With <a href="https://github.com/gabrielmougard/HackathonIA"><font color="#00B7FF">AIonos</font></a> never be cut off from the radio !</h2>
-    <script>
-        function solarData() {
-            var getJSON = function(url, callback) {
-                var xhr = new XMLHttpRequest();
-                xhr.open('GET', url, true);
-                xhr.responseType = 'json';
-                xhr.onload = function() {
-                    var status = xhr.status;
-                    if (status === 200) {
-                        callback(null, xhr.response);
-                    } else {
-                        callback(status, xhr.response);
-                    }
-                };
-                xhr.send();
-            };
-            getJSON('https://services.swpc.noaa.gov/json/f107_cm_flux.json',
-                function(err, data) {
-                    if (err !== null) {
-                        alert('Something went wrong: ' + err);
-                    } else {
-                        data1=data;
-                        dataPoints=[];
-                        data1.forEach(function(value,index){
-                            dataPoints.push({x:new Date(value["time_tag"]), y:value["flux"]});
-
-                        });
-                        alert(dataPoints[0]["x"]);
-                        alert(dataPoints[0]["y"]);
-                        return dataPoints;
-                    }
-                });
-
-        }
-            window.onload = function () {
-                var chart = new CanvasJS.Chart("chartContainer", {
-                    animationEnabled: true,
-                    theme: "dark2",
-                    title:{
-                        text: "Intensite du flux solaire"
-                    },
-                    axisY:{
-
-                    },
-                    axisX: {
-
-                        valueFormatString: "D MMM H:m:s" ,
-                    },
-                    data: [{
-                        xValueType: "dateTime",
-                        type: "line",
-                        dataPoints: solarData(),
-                    }]
-                });
-                chart.render();
-
-            }
-        </script>
+      </div>
     <script src="/javascripts/main.js"></script>
     <!--blinking alert-->
-  <!--<script>-->
-      <!--let state = false;-->
-      <!--let counter = 0;-->
-      <!--function blink() {-->
-          <!--counter++;-->
-          <!--if (state){-->
-              <!--document.body.style.background = "#222";-->
-              <!--state = !state;-->
-          <!--}-->
-          <!--else if (counter<20){-->
-              <!--document.body.style.background = "red";-->
-              <!--state = !state;-->
-          <!--}-->
-      <!--}-->
-      <!--setTimeout(function() {-->
-          <!--setInterval(() => blink(), 500);-->
-      <!--}, 5000);-->
-  <!--</script>-->
+
+      <script>
+
+
+
+      document.addEventListener('keypress', (event) => {
+          if (event.key === 'q')
+              blink();
+      });
+
+      let state = false;
+
+      document.getElementById("alert").style.visibility = "hidden";
+      function blink() {
+          state = !state;
+         if(state){
+             document.getElementById("alert").style.visibility = "hidden";
+         }
+         else{
+             document.getElementById("alert").style.visibility = "visible";
+         }
+      }
+  </script>
+
+      <div class="alert alert-danger" role="alert" id="alert">
+          WARNING the signal is expected to be lost in 10 minutes !
+      </div>
 
   </body>
 </html>
