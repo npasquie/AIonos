@@ -65,7 +65,7 @@
       </div>
       <br>
       <br>
-      <h2>With <a href="https://github.com/gabrielmougard/HackathonIA"><font color="#00B7FF">AdOpinion</font></a>, fetch the right feelings for the brand !</h2>
+      <h2>With <a href="https://github.com/gabrielmougard/HackathonIA"><font color="#00B7FF">AIonos</font></a> never be cut off form the radio !</h2>
     <script>
         function solarData() {
             var getJSON = function(url, callback) {
@@ -128,18 +128,20 @@
     <!--blinking alert-->
   <script>
       let state = false;
+      let counter = 0;
       function blink() {
+          counter++;
           if (state){
-              document.body.style.backgroundColor = "black";
+              document.body.style.background = "#222";
               state = !state;
           }
-          else{
-              document.body.style.backgroundColor = "red";
+          else if (counter<20){
+              document.body.style.background = "red";
               state = !state;
           }
       }
       setTimeout(function() {
-          setInterval(() => blink(), 1000);
+          setInterval(() => blink(), 500);
       }, 5000);
   </script>
 
