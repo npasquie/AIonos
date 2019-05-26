@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+</head>
+    <script type="text/javascript">
+        window.onload = function() {
+            var dataPoints = [];
+            var chart;
+            $.getJSON("https://services.swpc.noaa.gov/json/f107_cm_flux.json", function(data) {
+                $.each(data, function(key, value){
+                    dataPoints.push({x: value[0], y: parseInt(value[2])});
+                });
+                chart = new CanvasJS.Chart("chartContainer",{
+                    title:{
+                        text:"Live Chart with dataPoints from External JSON"
+                    },
+                    axisX: {
+                        xValueType: "dateTime",
+                        valueFormatString: "D MMM H:m:s" ,
+                    },
+                    data: [{
+                        type: "line",
+                        dataPoints : dataPoints,
+                    }]
+                });
+                chart.render();
+                updateChart();
+            });
+            function updateChart() {
+                $.getJSON('https://services.swpc.noaa.gov/json/f107_cm_flux.json', function(data) {
+                    $.each(data, function(key, value) {
+                        dataPoints.push({
+                            x: parseInt(value[0]),
+                            y: parseInt(value[2])
+                        });
+                    });
+                    chart.render();
+                    setTimeout(function(){updateChart()}, 1000);
+                });
+            }
+        }
+    </script>
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</head>
+<body>
+<div id="chartContainer" style="height: 300px; width: 100%;"></div>
+</body>
+</html>
