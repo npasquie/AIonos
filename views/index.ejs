@@ -9,6 +9,34 @@
   </head>
   <body>
 
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+  <script>
+
+      myfunc = async ()=> {
+          var options = {
+              chart: {
+                  type: 'line'
+              },
+              series: [{
+                  name: 'sales',
+                  data: [30, 40, 35, 50, 49, 60, 70, 91, 125]
+              }],
+              xaxis: {
+                  categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
+              }
+          }
+          var chart = new ApexCharts(document.querySelector("LineChart"), options);
+
+          await chart.render();
+      }
+
+      myfunc()
+
+
+
+
+  </script>
+
       <h1 style="font-family: Righteous;"><div style="color:deepskyblue;display:inline-block;">AI</div>onos</h1>
       <br>
       <br>
@@ -20,6 +48,8 @@
           <div class="column" style="background: red;height: 300px;">
           <div id="chartContainer" style="height: 370px; width: 100%;"></div>
           <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+
               </div>
           </div>
           <div class="column" style="background: blue;height: 100px;">
