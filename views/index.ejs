@@ -9,7 +9,6 @@
   </head>
   <body>
       <h1 style="font-family: Righteous;"><div style="color:deepskyblue;display:inline-block;">AI</div>onos  </h1>
-          <br>
             <h2 style="font-family: Righteous;">Unleash the
           <span
                   class="txt-rotate"
@@ -17,7 +16,6 @@
                   data-rotate='[ "speed", "precision", "prediction", "innovation" ]'>
         </span> of AI
             </h2>
-      <br>
       <br>
       <br>
       <div class="row">
@@ -78,6 +76,63 @@
                       </form>
                   </div>
                   <br>
+
+                  <!-- cp ici -->
+
+                  <script>
+
+                      window.onload = function () {
+
+                          var chart = new CanvasJS.Chart("chartContainer2", {
+                              animationEnabled: true,
+                              zoomEnabled: true,
+                              title:{
+                                  text: "Prediction"
+                              },
+                              axisY :{
+                                  includeZero:false
+                              },
+                              theme: "dark2",
+                              data: data  // random generator below
+                          });
+                          chart.render();
+
+                      }
+
+                      var limit = 35+40+10;
+
+                      var y = 0;
+                      var data = [];
+                      var dataSeries = { type: "line" };
+                      var dataPoints = [];
+                      // varier entre 0 et 0.00003
+                      let i = 0;
+                      while(i<35){
+                          dataPoints.push({
+                              x: i - limit / 2,
+                              y: y
+                          });
+                          i++;
+                      }
+                      y = 0.000025;
+                      while(i<35+40){
+                          y += ((Math.random()-0.5) * 0.000005);
+                          dataPoints.push({
+                              x: i - limit / 2,
+                              y: y
+                          });
+                          i++;
+                      }
+                      dataSeries.dataPoints = dataPoints;
+                      data.push(dataSeries);
+
+                  </script>
+                  <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script></head>
+                  <body>
+                  <div id="chartContainer2" style="height: 170px; width: 100%;">
+                  </div>
+
+                  <!-- fin cp -->
 
               </div>
           </div>
@@ -145,24 +200,24 @@
         </script>
     <script src="/javascripts/main.js"></script>
     <!--blinking alert-->
-  <script>
-      let state = false;
-      let counter = 0;
-      function blink() {
-          counter++;
-          if (state){
-              document.body.style.background = "#222";
-              state = !state;
-          }
-          else if (counter<20){
-              document.body.style.background = "red";
-              state = !state;
-          }
-      }
-      setTimeout(function() {
-          setInterval(() => blink(), 500);
-      }, 5000);
-  </script>
+  <!--<script>-->
+      <!--let state = false;-->
+      <!--let counter = 0;-->
+      <!--function blink() {-->
+          <!--counter++;-->
+          <!--if (state){-->
+              <!--document.body.style.background = "#222";-->
+              <!--state = !state;-->
+          <!--}-->
+          <!--else if (counter<20){-->
+              <!--document.body.style.background = "red";-->
+              <!--state = !state;-->
+          <!--}-->
+      <!--}-->
+      <!--setTimeout(function() {-->
+          <!--setInterval(() => blink(), 500);-->
+      <!--}, 5000);-->
+  <!--</script>-->
 
   </body>
 </html>

@@ -1,8 +1,4 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-    <script>
-        window.onload = function () {
+window.onload = function () {
 
             var chart = new CanvasJS.Chart("chartContainer", {
                 animationEnabled: true,
@@ -13,33 +9,36 @@
                 axisY :{
                     includeZero:false
                 },
+                theme: "dark2",
                 data: data  // random generator below
             });
             chart.render();
 
         }
 
-        var limit = 1000;
+        var limit = 35+40+10;
 
         var y = 0;
         var data = [];
         var dataSeries = { type: "line" };
         var dataPoints = [];
         // varier entre 0 et 0.00003
-        for (var i = 0; i < limit; i += 1) {
-            y += (Math.random() * 10 - 5);
+        let i = 0;
+        while(i<35){
             dataPoints.push({
                 x: i - limit / 2,
                 y: y
             });
+            i++;
+        }
+        y = 0.000025;
+        while(i<35+40){
+            y += ((Math.random()-0.5) * 0.000005);
+            dataPoints.push({
+                x: i - limit / 2,
+                y: y
+            });
+            i++;
         }
         dataSeries.dataPoints = dataPoints;
         data.push(dataSeries);
-
-    </script>
-    <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script></head>
-<body>
-<div id="chartContainer" style="height: 370px; width: 100%;">
-</div>
-</body>
-</html>
