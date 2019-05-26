@@ -3,9 +3,9 @@
 <head>
 </head>
 <script>
-
+        dataPoints=[];
         window.onload = function () {
-            function solarData() {
+            function solarData(callback) {
                 var getJSON = function (url, callback) {
                     var xhr = new XMLHttpRequest();
                     xhr.open('GET', url, true);
@@ -33,7 +33,6 @@
                             });
                             alert(dataPoints[0]["x"]);
                             alert(dataPoints[0]["y"]);
-                            return dataPoints;
                         }
                     });
             }
@@ -56,7 +55,7 @@
 
                 }]
             });
-            chart.value.dataPoints=solarData();
+            solarData();
             chart.render();
 
         }
