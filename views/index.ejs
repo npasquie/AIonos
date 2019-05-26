@@ -4,6 +4,41 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway:200,100,400" rel="stylesheet" type="text/css" />
     <title>AdOpinion</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
+      <script>
+          window.onload = function () {
+
+              var chart = new CanvasJS.Chart("chartContainer", {
+                  animationEnabled: true,
+                  zoomEnabled: true,
+                  title:{
+                      text: "Try Zooming and Panning"
+                  },
+                  axisY :{
+                      includeZero:false
+                  },
+                  data: data  // random generator below
+              });
+              chart.render();
+
+          }
+
+          var limit = 1000;
+
+          var y = 0;
+          var data = [];
+          var dataSeries = { type: "line" };
+          var dataPoints = [];
+          for (var i = 0; i < limit; i += 1) {
+              y += (Math.random() * 10 - 5);
+              dataPoints.push({
+                  x: i - limit / 2,
+                  y: y
+              });
+          }
+          dataSeries.dataPoints = dataPoints;
+          data.push(dataSeries);
+
+      </script>
   </head>
   <body>
 
@@ -20,15 +55,22 @@
       <br>
       <br>
       <br>
-      <div class="Wrapper">
-        <div class="Input">
-          <form id="mainForm" action="/model" method="get" onkeypress="pressEnter(event);">
-            
-              <input type="text" id="input" class="Input-text" placeholder="Ma marque incroyable !" name="data">
-              <label for="input" class="Input-label">My brand !</label>
-            
-          </form>
-        </div>
+      <div class="row">
+          <div class="column" style="background: red;height: 800px;">
+              <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+              <div id="chartContainer" style="height: 300px; width: 100%;">
+              </div>
+          </div>
+          <div class="column" style="background: blue;height: 100px;">
+              <div class="Wrapper">
+                  <div class="Input">
+                      <form id="mainForm" action="/model" method="get" onkeypress="pressEnter(event);">
+                          <input type="text" id="input" class="Input-text" placeholder="Antoine t'es gros" name="data">
+                          <label for="input" class="Input-label">My brand !</label>
+                      </form>
+                  </div>
+              </div>
+          </div>
       </div>
       <br>
       <br>

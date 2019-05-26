@@ -25,6 +25,14 @@ h2 {
 
 @import url('https://fonts.googleapis.com/css?family=Dosis');
 
+.row {
+  display: flex;
+}
+
+.column {
+  flex: 50%;
+}
+
 :root {
   /* generic */
   --gutterSm: 0.4rem;
@@ -42,7 +50,7 @@ h2 {
   --fontSizeXl: 2.8rem;
   --fontSizeXx: 3.6rem;
   --lineHeightSm: 1.1;
-  --lineHeightMd: 1.8;
+  --lineHeightMd: 1.0;
   --transitionDuration: 300ms;
   --transitionTF: cubic-bezier(0.645, 0.045, 0.355, 1);
   
