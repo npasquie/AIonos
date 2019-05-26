@@ -1,10 +1,41 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <script>
-        window.onload = function () {
-            import("../app.js");
+<script>
+    function solarData() {
+        var getJSON = function(url, callback) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', url, true);
+            xhr.responseType = 'json';
+            xhr.onload = function() {
+                var status = xhr.status;
+                if (status === 200) {
+                    callback(null, xhr.response);
+                } else {
+                    callback(status, xhr.response);
+                }
+            };
+            xhr.send();
+        };
+        getJSON('https://services.swpc.noaa.gov/json/f107_cm_flux.json',
+            function(err, data) {
+                if (err !== null) {
+                    alert('Something went wrong: ' + err);
+                } else {
+                    data1=data;
+                    dataPoints=[];
+                    data1.forEach(function(value,index){
+                        dataPoints.push({x:new Date(value["time_tag"]), y:value["flux"]});
 
+                    });
+                    alert(dataPoints[0]["x"]);
+                    alert(dataPoints[0]["y"]);
+                    return dataPoints;
+                }
+            });
+
+    }
+        window.onload = function () {
             var chart = new CanvasJS.Chart("chartContainer", {
                 animationEnabled: true,
                 theme: "dark2",
@@ -14,7 +45,12 @@
                 axisY:{
                     includeZero: false
                 },
+                axisX: {
+
+                    valueFormatString: "D MMM H:m:s" ,
+                },
                 data: [{
+                    xValueType: "dateTime",
                     type: "line",
                     dataPoints: solarData(),
                 }]
@@ -23,9 +59,7 @@
 
         }
     </script>
-</head>
 <body>
 <div id="chartContainer" style="height: 370px; width: 100%;"></div>
 <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </body>
-</html>

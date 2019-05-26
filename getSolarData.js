@@ -22,7 +22,7 @@ function solarData() {
             }
         });
     data1=JSON.parse(data);
-    dataPoints=[]
+    dataPoints=[];
     data1.forEach(function(time_tag, flux){
         dataPoints.push({x:time_tag, y:flux})
     });
